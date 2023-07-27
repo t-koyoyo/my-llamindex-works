@@ -1,0 +1,5 @@
+# Custom
+.env
+data/*
+storages/vector_store_index/*
+!.gitkeep

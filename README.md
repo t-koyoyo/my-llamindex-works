@@ -16,3 +16,9 @@
 ├── README.md               ... 
 └── requirements.txt        ... 
 ```
+
+## Docker Command List
+
+```bash
+$ docker exec -i -t my-llamindex-works-app-1 /bin/bash
+```
