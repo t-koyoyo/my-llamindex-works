@@ -1,4 +1,5 @@
 # Custom
+__pycache__
 .env
 data/*
 storages/vector_store_index/*

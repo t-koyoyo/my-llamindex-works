@@ -1,1 +1,2 @@
+faiss-cpu==1.7.4
 llama-index==0.7.13
