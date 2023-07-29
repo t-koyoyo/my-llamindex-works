@@ -3,7 +3,7 @@ import sys
 import faiss
 import qdrant_client
 
-from llama_index import ServiceContext, SimpleDirectoryReader, StorageContext, VectorStoreIndex
+from llama_index import ServiceContext, SimpleDirectoryReader, StorageContext, VectorStoreIndex, download_loader
 from llama_index.vector_stores.qdrant import QdrantVectorStore
 
 import custom_embed
@@ -13,7 +13,7 @@ import custom_embed
 
 # ------------------------------
 # ■ Requirements
-# https://gpt-index.readthedocs.io/en/v0.7.13/examples/vector_stores/QdrantIndexDemo.html
+# https://gpt-index.readthedocs.io/en/v0.7.14/examples/vector_stores/QdrantIndexDemo.html
 # ------------------------------
 
 # ------------------------------
@@ -25,7 +25,15 @@ client = qdrant_client.QdrantClient(path='../../../storages/vector_store_index/q
 # ------------------------------
 # ■ Load data
 # ------------------------------
-documents = SimpleDirectoryReader('../../../data').load_data()
+DocxReader = download_loader("DocxReader")
+PDFMinerReader = download_loader("PDFMinerReader")
+UnstructuredReader = download_loader('UnstructuredReader')
+dir_reader = SimpleDirectoryReader('../../../data', file_extractor={
+  ".docx": DocxReader(),
+  ".pdf": PDFMinerReader(),
+  ".html": UnstructuredReader(),
+})
+documents = dir_reader.load_data()
 
 # ------------------------------
 # ■ Create index

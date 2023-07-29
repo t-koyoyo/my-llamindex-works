@@ -2,7 +2,7 @@ import logging
 import sys
 import faiss
 
-from llama_index import ServiceContext, SimpleDirectoryReader, StorageContext, VectorStoreIndex
+from llama_index import ServiceContext, SimpleDirectoryReader, StorageContext, VectorStoreIndex, download_loader
 from llama_index.vector_stores.faiss import FaissVectorStore
 
 import custom_embed
@@ -12,7 +12,7 @@ import custom_embed
 
 # ------------------------------
 # ■ Requirements
-# https://gpt-index.readthedocs.io/en/v0.7.13/examples/vector_stores/FaissIndexDemo.html
+# https://gpt-index.readthedocs.io/en/v0.7.14/examples/vector_stores/FaissIndexDemo.html
 # ------------------------------
 
 # ------------------------------
@@ -28,7 +28,15 @@ faiss_index = faiss.IndexFlatL2(1536)     # 引数は特徴量の次元数.'text
 # ------------------------------
 # ■ Load data
 # ------------------------------
-documents = SimpleDirectoryReader('../../../data').load_data()
+DocxReader = download_loader("DocxReader")
+PDFMinerReader = download_loader("PDFMinerReader")
+UnstructuredReader = download_loader('UnstructuredReader')
+dir_reader = SimpleDirectoryReader('../../../data', file_extractor={
+  ".docx": DocxReader(),
+  ".pdf": PDFMinerReader(),
+  ".html": UnstructuredReader(),
+})
+documents = dir_reader.load_data()
 
 # ------------------------------
 # ■ Create index

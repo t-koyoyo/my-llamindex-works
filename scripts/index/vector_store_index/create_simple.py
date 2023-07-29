@@ -1,16 +1,16 @@
 import logging
 import sys
 
-from llama_index import ServiceContext, SimpleDirectoryReader, VectorStoreIndex
+from llama_index import ServiceContext, SimpleDirectoryReader, VectorStoreIndex, download_loader
 
 import custom_embed
 
-logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
-logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
+# logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+# logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
 
 # ------------------------------
 # ■ Requirements
-# https://gpt-index.readthedocs.io/en/v0.7.13/examples/vector_stores/SimpleIndexDemo.html
+# https://gpt-index.readthedocs.io/en/v0.7.14/examples/vector_stores/QdrantIndexDemo.html
 # ------------------------------
 
 # ------------------------------
@@ -21,7 +21,15 @@ embed_model = custom_embed.embed_azure()  # Embedding Model
 # ------------------------------
 # ■ Load data
 # ------------------------------
-documents = SimpleDirectoryReader('../../../data').load_data()
+DocxReader = download_loader("DocxReader")
+PDFMinerReader = download_loader("PDFMinerReader")
+UnstructuredReader = download_loader('UnstructuredReader')
+dir_reader = SimpleDirectoryReader('../../../data', file_extractor={
+  ".docx": DocxReader(),
+  ".pdf": PDFMinerReader(),
+  ".html": UnstructuredReader(),
+})
+documents = dir_reader.load_data()
 
 # ------------------------------
 # ■ Create index
