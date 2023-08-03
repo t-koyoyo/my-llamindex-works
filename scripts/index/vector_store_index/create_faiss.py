@@ -12,7 +12,7 @@ import custom_embed
 
 # ------------------------------
 # ■ Requirements
-# https://gpt-index.readthedocs.io/en/v0.7.14/examples/vector_stores/FaissIndexDemo.html
+# https://gpt-index.readthedocs.io/en/v0.7.16/examples/vector_stores/FaissIndexDemo.html
 # ------------------------------
 
 # ------------------------------

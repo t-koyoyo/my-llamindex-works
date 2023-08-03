@@ -24,8 +24,8 @@ def llm_azure():
   openai.api_version = "2023-05-15"
 
   return AzureOpenAI(
-    model="text-davinci-003",
+    model="gpt-35-turbo-16k",
     temperature=0,
     max_tokens=800,
-    engine="text-davinci-003_base"
+    engine="gpt-35-turbo-16k_base"
   )
