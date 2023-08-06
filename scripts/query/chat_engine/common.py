@@ -2,7 +2,7 @@ import os
 import openai
 import qdrant_client
 from langchain.embeddings import OpenAIEmbeddings
-from llama_index import LangchainEmbedding, OpenAIEmbedding, StorageContext, load_index_from_storage
+from llama_index import LangchainEmbedding, OpenAIEmbedding, Prompt, StorageContext, load_index_from_storage
 from llama_index.llms import AzureOpenAI, OpenAI
 from llama_index.vector_stores.faiss import FaissVectorStore
 from llama_index.vector_stores.qdrant import QdrantVectorStore
@@ -89,3 +89,26 @@ def load_vector_store_index_qdrant():
 def load_vector_store_index_simple():
   storage_context = StorageContext.from_defaults(persist_dir="../../../storages/vector_store_index/simple")
   return load_index_from_storage(storage_context=storage_context)
+
+
+## ----------------------------------------
+## ■ Custom Prompt
+## ----------------------------------------
+def custom_prompt_condense_question_prompt():
+  """
+  Chat Engine Custom Prompt
+    -> 要約質問プロンプト
+  """
+  return Prompt("""\
+    Given a conversation (between Human and Assistant) and a follow up message from Human, \
+    rewrite the message to be a standalone question that captures all relevant context \
+    from the conversation.
+
+    <Chat History>
+    {chat_history}
+
+    <Follow Up Message>
+    {question}
+
+    <Standalone question>
+  """)

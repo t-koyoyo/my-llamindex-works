@@ -63,9 +63,9 @@ def llm_azure() -> AzureOpenAI:
 def llm_openai() -> OpenAI:
   """
   OpenAI LLM Model
-    -> model : text-davinci-003
+    -> model : text-davinci-003 | gpt-3.5-turbo-0613
   """
-  return OpenAI(model="text-davinci-003")
+  return OpenAI(model="gpt-3.5-turbo-0613")
 
 
 ## ----------------------------------------

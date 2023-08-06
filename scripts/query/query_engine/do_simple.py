@@ -15,7 +15,7 @@ import common
 # ------------------------------
 similarity_top_k=3                                # 類似度の高い上位何件を取得するか
 stream_mode=False                                 # レスポンスをストリーミングとするかどうか
-llm_model = common.llm_azure()                    # LLM Model
+llm_model = common.llm_openai()                   # LLM Model
 embed_model = common.embed_azure()                # Embedding Model
 service_context = ServiceContext.from_defaults(llm=llm_model,embed_model=embed_model)
 set_global_service_context(service_context)
