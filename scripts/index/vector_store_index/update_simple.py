@@ -1,24 +1,14 @@
-from llama_index import SimpleDirectoryReader, download_loader
-
-import load_index
+import common
 
 # ------------------------------
 # ■ Load data
 # ------------------------------
-DocxReader = download_loader("DocxReader")
-PDFMinerReader = download_loader("PDFMinerReader")
-UnstructuredReader = download_loader('UnstructuredReader')
-dir_reader = SimpleDirectoryReader('../../../data', file_extractor={
-  ".docx": DocxReader(),
-  ".pdf": PDFMinerReader(),
-  ".html": UnstructuredReader(),
-})
-documents = dir_reader.load_data()
+documents = common.load_documents_local_files("../../../data")
 
 # ------------------------------
 # ■ Load index
 # ------------------------------
-index = load_index.load_vector_store_index_simple()
+index = common.load_vector_store_index_simple()
 
 # ------------------------------
 # ■ Update index

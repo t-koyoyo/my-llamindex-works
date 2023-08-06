@@ -2,10 +2,10 @@ import logging
 import sys
 import faiss
 
-from llama_index import ServiceContext, SimpleDirectoryReader, StorageContext, VectorStoreIndex, download_loader
+from llama_index import ServiceContext, StorageContext, VectorStoreIndex
 from llama_index.vector_stores.faiss import FaissVectorStore
 
-import custom_embed
+import common
 
 # logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 # logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
@@ -22,21 +22,13 @@ import custom_embed
 #   - faiss.IndexIVFFlat : 大規模なデータセットに対する検索を高速化する（精度は若干低下）
 #   - faiss.IndexIVFPQ   : メモリ使用量が大幅に削減され、検索速度が向上する（精度は若干低下）
 # ------------------------------
-embed_model = custom_embed.embed_azure()  # Embedding Model
+embed_model = common.embed_azure()  # Embedding Model
 faiss_index = faiss.IndexFlatL2(1536)     # 引数は特徴量の次元数.'text-ada-embedding-002'⇒`1536`.
 
 # ------------------------------
 # ■ Load data
 # ------------------------------
-DocxReader = download_loader("DocxReader")
-PDFMinerReader = download_loader("PDFMinerReader")
-UnstructuredReader = download_loader('UnstructuredReader')
-dir_reader = SimpleDirectoryReader('../../../data', file_extractor={
-  ".docx": DocxReader(),
-  ".pdf": PDFMinerReader(),
-  ".html": UnstructuredReader(),
-})
-documents = dir_reader.load_data()
+documents = common.load_documents_local_files("../../../data")
 
 # ------------------------------
 # ■ Create index

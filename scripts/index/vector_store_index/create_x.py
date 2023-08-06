@@ -8,7 +8,7 @@ from llama_index import ServiceContext, StorageContext, VectorStoreIndex, downlo
 from llama_index.schema import TextNode
 from llama_index.vector_stores.faiss import FaissVectorStore
 
-import custom_embed
+import common
 
 # logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 # logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
@@ -22,7 +22,7 @@ import custom_embed
 # ------------------------------
 # ■ Settings
 # ------------------------------
-embed_model = custom_embed.embed_azure()  # Embedding Model
+embed_model = common.embed_azure()  # Embedding Model
 index_type = "faiss"  # "simple" or "faiss"
 faiss_index = faiss.IndexFlatL2(1536)     # 引数は特徴量の次元数.'text-ada-embedding-002'⇒`1536`.
 

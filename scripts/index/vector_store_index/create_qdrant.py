@@ -1,12 +1,11 @@
 import logging
 import sys
-import faiss
 import qdrant_client
 
-from llama_index import ServiceContext, SimpleDirectoryReader, StorageContext, VectorStoreIndex, download_loader
+from llama_index import ServiceContext, StorageContext, VectorStoreIndex
 from llama_index.vector_stores.qdrant import QdrantVectorStore
 
-import custom_embed
+import common
 
 # logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 # logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
@@ -19,21 +18,13 @@ import custom_embed
 # ------------------------------
 # ■ Settings Constants
 # ------------------------------
-embed_model = custom_embed.embed_azure()  # Embedding Model
+embed_model = common.embed_azure()  # Embedding Model
 client = qdrant_client.QdrantClient(path='../../../storages/vector_store_index/qdrant')
 
 # ------------------------------
 # ■ Load data
 # ------------------------------
-DocxReader = download_loader("DocxReader")
-PDFMinerReader = download_loader("PDFMinerReader")
-UnstructuredReader = download_loader('UnstructuredReader')
-dir_reader = SimpleDirectoryReader('../../../data', file_extractor={
-  ".docx": DocxReader(),
-  ".pdf": PDFMinerReader(),
-  ".html": UnstructuredReader(),
-})
-documents = dir_reader.load_data()
+documents = common.load_documents_local_files("../../../data")
 
 # ------------------------------
 # ■ Create index

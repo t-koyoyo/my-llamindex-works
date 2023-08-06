@@ -1,9 +1,9 @@
 import logging
 import sys
 
-from llama_index import ServiceContext, SimpleDirectoryReader, VectorStoreIndex, download_loader
+from llama_index import ServiceContext, VectorStoreIndex
 
-import custom_embed
+import common
 
 # logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 # logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
@@ -16,20 +16,12 @@ import custom_embed
 # ------------------------------
 # ■ Settings
 # ------------------------------
-embed_model = custom_embed.embed_azure()  # Embedding Model
+embed_model = common.embed_azure()  # Embedding Model
 
 # ------------------------------
 # ■ Load data
 # ------------------------------
-DocxReader = download_loader("DocxReader")
-PDFMinerReader = download_loader("PDFMinerReader")
-UnstructuredReader = download_loader('UnstructuredReader')
-dir_reader = SimpleDirectoryReader('../../../data', file_extractor={
-  ".docx": DocxReader(),
-  ".pdf": PDFMinerReader(),
-  ".html": UnstructuredReader(),
-})
-documents = dir_reader.load_data()
+documents = common.load_documents_local_files("../../../data")
 
 # ------------------------------
 # ■ Create index
