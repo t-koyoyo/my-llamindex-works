@@ -2,5 +2,6 @@
 __pycache__
 .env
 data/*
+storages/list_index/*
 storages/vector_store_index/*
 !.gitkeep
