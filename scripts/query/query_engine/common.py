@@ -8,6 +8,7 @@ from llama_index.llms import AzureOpenAI, OpenAI
 from llama_index.vector_stores.faiss import FaissVectorStore
 from llama_index.vector_stores.qdrant import QdrantVectorStore
 from llama_index.vector_stores import WeaviateVectorStore
+from llama_index.indices.base import BaseIndex
 
 
 ## ----------------------------------------
@@ -71,6 +72,14 @@ def llm_openai() -> OpenAI:
 ## ----------------------------------------
 ## ■ Load Index
 ## ----------------------------------------
+def load_knowledge_graph_index_simple():
+  storage_context = StorageContext.from_defaults(persist_dir="../../../storages/knowledge_graph_index/simple")
+  return load_index_from_storage(storage_context=storage_context)
+
+def load_list_index_simple():
+  storage_context = StorageContext.from_defaults(persist_dir="../../../storages/list_index/simple")
+  return load_index_from_storage(storage_context=storage_context)
+
 def load_vector_store_index_faiss():
   vector_store = FaissVectorStore.from_persist_dir("../../../storages/vector_store_index/faiss")
   storage_context = StorageContext.from_defaults(
@@ -96,3 +105,20 @@ def load_vector_store_index_weaviate():
   client = weaviate.Client("http://weaviate:8080")
   vector_store = WeaviateVectorStore(weaviate_client=client, index_name="LlamaIndex")
   return VectorStoreIndex.from_vector_store(vector_store)
+
+
+## ----------------------------------------
+## ■ Load Query Engine
+## ----------------------------------------
+def load_query_engine_for_knowledge_graph(index:BaseIndex):
+  return index.as_query_engine(
+    include_text=True,
+    response_mode="tree_summarize",
+    embedding_mode="hybrid",
+    # similarity_top_k=5,
+    # streaming=stream_mode,
+    verbose=True
+  )
+
+def load_query_engine_for_simple(index:BaseIndex, stream_mode:bool=False):
+  return index.as_query_engine(streaming=stream_mode, verbose=True)

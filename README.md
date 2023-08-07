@@ -7,22 +7,25 @@
 ├── data
 ├── scripts
 │   ├── index
+│   │   ├── knowledge_graph_index
+│   │   │   ├── create_simple.py    ... SimpleなKnowledgeGraphIndexを作成
+│   │   ├── list_index
+│   │   │   ├── create_simple.py    ... SimpleなListIndexを作成
 │   │   ├── vector_store_index
-│   │   │   ├── create_faiss.py   ... 
+│   │   │   ├── create_faiss.py     ... FaissでVectorStoreIndexを作成
+│   │   │   ├── create_qdrant.py    ... QdrantでVectorStoreIndexを作成
+│   │   │   ├── create_simple.py    ... SimpleなVectorStoreIndexを作成
 │   │── query
 │   │   ├── chat_engine
+│   │   │   ├── do_simple.py        ... 
 │   │   ├── query_engine
-├── storages                      ... 
-│   ├── vector_store_index        ... 
-│   │   ├── faiss
-│   │   ├── qdrant
-│   │   └── simple
-├── .env.local.example            ... Environmental Variables File
-├── .gitignore                    ... Git Definition File
-├── docker-compose.yml            ... Docker Definition File
-├── Dockerfile                    ... Docker Definition File
-├── README.md                     ... Repository Documentation
-└── requirements.txt              ... Manage Python Library
+├── storages                        ... Manage Various Created Indexes
+├── .env.local.example              ... Environmental Variables File
+├── .gitignore                      ... Git Definition File
+├── docker-compose.yml              ... Docker Definition File
+├── Dockerfile                      ... Docker Definition File
+├── README.md                       ... Repository Documentation
+└── requirements.txt                ... Manage Python Library
 ```
 
 ## Usage
