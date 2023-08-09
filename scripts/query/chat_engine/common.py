@@ -2,10 +2,12 @@ import os
 import openai
 import qdrant_client
 from langchain.embeddings import OpenAIEmbeddings
-from llama_index import LangchainEmbedding, OpenAIEmbedding, Prompt, StorageContext, load_index_from_storage
+from llama_index import LangchainEmbedding, OpenAIEmbedding, Prompt, StorageContext, VectorStoreIndex, load_index_from_storage
 from llama_index.llms import AzureOpenAI, OpenAI
 from llama_index.vector_stores.faiss import FaissVectorStore
 from llama_index.vector_stores.qdrant import QdrantVectorStore
+from llama_index.vector_stores import WeaviateVectorStore
+import weaviate
 
 
 ## ----------------------------------------
@@ -79,16 +81,17 @@ def load_vector_store_index_faiss():
 
 def load_vector_store_index_qdrant():
   client = qdrant_client.QdrantClient(path='../../../storages/vector_store_index/qdrant')
-  vector_store = QdrantVectorStore(client=client, collection_name="my_collection")
-  storage_context = StorageContext.from_defaults(
-    vector_store=vector_store,
-    persist_dir="../../../storages/vector_store_index/qdrant"
-  )
-  return load_index_from_storage(storage_context=storage_context)
+  vector_store = QdrantVectorStore(client=client, collection_name="LlamaIndex")
+  return VectorStoreIndex.from_vector_store(vector_store)
 
 def load_vector_store_index_simple():
   storage_context = StorageContext.from_defaults(persist_dir="../../../storages/vector_store_index/simple")
   return load_index_from_storage(storage_context=storage_context)
+
+def load_vector_store_index_weaviate():
+  client = weaviate.Client("http://weaviate:8080")
+  vector_store = WeaviateVectorStore(weaviate_client=client, index_name="LlamaIndex")
+  return VectorStoreIndex.from_vector_store(vector_store)
 
 
 ## ----------------------------------------

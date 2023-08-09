@@ -11,14 +11,20 @@
 │   │   │   ├── create_simple.py    ... SimpleなKnowledgeGraphIndexを作成
 │   │   ├── list_index
 │   │   │   ├── create_simple.py    ... SimpleなListIndexを作成
-│   │   ├── vector_store_index
+│   │   ├── vector_store_index      ... https://gpt-index.readthedocs.io/en/v0.7.22/core_modules/data_modules/storage/vector_stores.html
 │   │   │   ├── create_faiss.py     ... FaissでVectorStoreIndexを作成
 │   │   │   ├── create_qdrant.py    ... QdrantでVectorStoreIndexを作成
 │   │   │   ├── create_simple.py    ... SimpleなVectorStoreIndexを作成
+│   │   │   ├── create_weaviate.py  ... WeaviateでVectorStoreIndexを作成
 │   │── query
 │   │   ├── chat_engine
+│   │   │   ├── do_context.py       ... 
+│   │   │   ├── do_openai.py        ... 
+│   │   │   ├── do_react.py         ... 
 │   │   │   ├── do_simple.py        ... 
 │   │   ├── query_engine
+│   │   │   ├── common.py           ... 
+│   │   │   └── do_simple.py        ... 
 ├── storages                        ... Manage Various Created Indexes
 ├── .env.local.example              ... Environmental Variables File
 ├── .gitignore                      ... Git Definition File

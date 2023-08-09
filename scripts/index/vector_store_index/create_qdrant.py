@@ -12,7 +12,7 @@ import common
 
 # ------------------------------
 # ■ Requirements
-# https://gpt-index.readthedocs.io/en/v0.7.21/examples/vector_stores/QdrantIndexDemo.html
+# https://gpt-index.readthedocs.io/en/v0.7.22/examples/vector_stores/QdrantIndexDemo.html
 # ------------------------------
 
 # ------------------------------
@@ -29,17 +29,12 @@ documents = common.load_documents_local_files("../../../data")
 # ------------------------------
 # ■ Create index
 # ------------------------------
-vector_store = QdrantVectorStore(client=client, collection_name="my_collection")
+vector_store = QdrantVectorStore(client=client, collection_name="LlamaIndex")
 storage_context = StorageContext.from_defaults(vector_store=vector_store)
 service_context = ServiceContext.from_defaults(embed_model=embed_model)
-index = VectorStoreIndex.from_documents(
-  documents=documents,
-  storage_context=storage_context,
-  service_context=service_context,
-  show_progress=True
-)
+index = VectorStoreIndex.from_documents(documents=documents,storage_context=storage_context,service_context=service_context,show_progress=True)
 
 # ------------------------------
 # ■ Save index
 # ------------------------------
-index.storage_context.persist('../../../storages/vector_store_index/qdrant')
+# index.storage_context.persist('../../../storages/vector_store_index/qdrant')

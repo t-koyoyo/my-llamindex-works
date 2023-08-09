@@ -31,7 +31,7 @@ service_context = ServiceContext.from_defaults(
   prompt_helper=prompt_helper
 )
 set_global_service_context(service_context)
-message = '安倍晋三はいつ死んだ？'
+message = '時刻がずれている'
 chat_history = [
   # ChatMessage(role=MessageRole.USER,      content='打ち忘れ修正ボタンは何？'),
   # ChatMessage(role=MessageRole.ASSISTANT, content='「打ち忘れ修正」ボタンは、未処理データがある場合に表示されるボタンです。このボタンをクリックすることで、打刻漏れや誤った打刻を修正することができます。'),
@@ -40,24 +40,28 @@ chat_history = [
 # ------------------------------
 # ■ Load Index
 # ------------------------------
-index = common.load_vector_store_index_simple()
+index = common.load_vector_store_index_weaviate()
 
 # ------------------------------
 # ■ Do Query
 # ------------------------------
-from llama_index.indices.postprocessor import SimilarityPostprocessor
 chat_engine = index.as_chat_engine(
   chat_mode='context',
   similarity_top_k=similarity_top_k,
   verbose=True,
-  node_postprocessors=SimilarityPostprocessor(similarity_cutoff=0.75).postprocess_nodes(index.as_retriever().retrieve("日付切換時刻の考え方"))
 )
+
+# chat_engine = index.as_chat_engine(
+#   chat_mode='context',
+#   vector_store_query_mode="hybrid",
+#   similarity_top_k=similarity_top_k,
+#   verbose=True,
+# )
+
 response = None
 if stream_mode:
   response = chat_engine.stream_chat(message=message, chat_history=chat_history)
   response.print_response_stream()
-  # for token in response.response_gen:
-  #   print(token, end="")
 else:
   response = chat_engine.chat(message=message, chat_history=chat_history)
   print(str(response))

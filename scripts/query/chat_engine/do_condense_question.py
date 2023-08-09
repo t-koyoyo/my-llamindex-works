@@ -1,3 +1,4 @@
+from datetime import datetime
 import logging
 import sys
 from llama_index import ServiceContext, set_global_service_context
@@ -9,19 +10,19 @@ import common
 
 # ------------------------------
 # ■ Requirements
-# https://gpt-index.readthedocs.io/en/v0.7.21/examples/chat_engine/chat_engine_condense_question.html
+# https://gpt-index.readthedocs.io/en/v0.7.22/examples/chat_engine/chat_engine_condense_question.html
 # ------------------------------
 
 # ------------------------------
 # ■ Settings
 # ------------------------------
 similarity_top_k=3                                # 類似度の高い上位何件を取得するか
-stream_mode=True                                  # レスポンスをストリーミングとするかどうか
+stream_mode=False                                 # レスポンスをストリーミングとするかどうか
 llm_model = common.llm_azure()                    # LLM Model
 embed_model = common.embed_azure()                # Embedding Model
 service_context = ServiceContext.from_defaults(llm=llm_model,embed_model=embed_model)
 set_global_service_context(service_context)
-message = '安倍晋三はいつ死んだ？'
+message = '時計が遅れている'
 chat_history = [
   # ChatMessage(role=MessageRole.USER,      content='打ち忘れ修正ボタンは何？'),
   # ChatMessage(role=MessageRole.ASSISTANT, content='「打ち忘れ修正」ボタンは、未処理データがある場合に表示されるボタンです。このボタンをクリックすることで、打刻漏れや誤った打刻を修正することができます。'),
@@ -30,7 +31,9 @@ chat_history = [
 # ------------------------------
 # ■ Load Index
 # ------------------------------
-index = common.load_vector_store_index_simple()
+print('Load Index Start: ', datetime.now())
+index = common.load_vector_store_index_qdrant()
+print('Load Index End: ', datetime.now())
 
 # ------------------------------
 # ■ Do Query
@@ -47,9 +50,9 @@ if stream_mode:
   response.print_response_stream()
 else:
   response = chat_engine.chat(message=message, chat_history=chat_history)
-  print(str(response))
+  print(f'{str(response)}')
 
 # ------------------------------
 # ■ Add Remarks
 # ------------------------------
-print(response.source_nodes)    # 埋め込み回答に使用したコンテキスト情報
+# print(response.source_nodes)    # 埋め込み回答に使用したコンテキスト情報
