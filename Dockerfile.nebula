@@ -1,0 +1,9 @@
+FROM ubuntu:20.04
+
+RUN apt update
+RUN apt install -y wget
+
+# Install Nebula Graph（https://docs.nebula-graph.io/3.6.0/4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb/）
+RUN wget https://oss-cdn.nebula-graph.io/package/3.6.0/nebula-graph-3.6.0.ubuntu2004.amd64.deb
+RUN wget https://oss-cdn.nebula-graph.io/package/3.6.0/nebula-graph-3.6.0.ubuntu2004.amd64.deb.sha256sum.txt
+RUN dpkg -i nebula-graph-3.6.0.ubuntu2004.amd64.deb

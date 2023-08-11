@@ -5,7 +5,7 @@ services:
     image: my-llamindex-works
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.app
     env_file:
       - .env
     volumes:
@@ -24,6 +24,23 @@ services:
       CLUSTER_HOSTNAME: 'node1'
     volumes:
       - weaviate_data:/var/lib/weaviate
+  nebula: # コンテナ起動後にコンテナ内で「/usr/local/nebula/scripts/nebula.service start all」を実行する必要がある
+    build:
+      context: .
+      dockerfile: Dockerfile.nebula
+    tty: true
+    ports:
+      - 9559:9559
+      - 9669:9669
+      - 9779:9779
+  neo4j:
+    image: neo4j
+    ports:
+      - 7474:7474
+      - 7687:7687
+    environment:
+      - NEO4J_AUTH=neo4j/Admin-999
+      - NEO4JLABS_PLUGINS=["apoc"]
 
 volumes:
   weaviate_data:

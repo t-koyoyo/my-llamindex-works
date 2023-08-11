@@ -44,6 +44,34 @@ $ docker-compose down                                   # Delete Container
 $ docker exec -i -t my-llamindex-works-app-1 /bin/bash  # Enter Container
 ```
 
+## Nebula
+
+```bash
+## 起動
+$ docker exec my-llamindex-works-nebula-1 /usr/local/nebula/scripts/nebula.service start all
+## 初期設定
+$ .\nebula-console-windows-amd64-v3.5.0.exe -addr 127.0.0.1 -port 9669 -u root -p nebula      # Localからコンテナ内のNebulaに接続
+  (root@nebula) [(none)]> ADD HOSTS 127.0.0.1:9779                                            # ストレージ ホストを NebulaGraph クラスターに追加
+  (root@nebula) [(none)]> CREATE SPACE IF NOT EXISTS llam_index (vid_type=FIXED_STRING(500)); # スペースを作成
+  (root@nebula) [(none)]> USE llam_index;                                                     # スペースを使用
+  (root@nebula) [llam_index]> CREATE TAG IF NOT EXISTS entity(name string);                   # タグを作成
+  (root@nebula) [llam_index]> CREATE EDGE IF NOT EXISTS relationship (relationship string);   # エッジを挿入
+## コマンド集
+DROP SPACE IF EXISTS <graph_space_name>;
+```
+
 ## Usefull Remarks
 
+* Vector Store の比較
+  | Name |aa|
+  |--|--|
+  | Simple |aa|
+  | Qdrant |aa|
+  * 参考 -> https://gpt-index.readthedocs.io/en/v0.7.23/core_modules/data_modules/storage/vector_stores.html
+* Embedding Model の比較
+  | Model |aa|
+  |--|--|
+  | e5-large-v2 |aa|
+  | Qdrant |aa|
+  * 参考 -> https://hironsan.hatenablog.com/entry/2023/07/05/073150
 * LlamIndex Changelog -> https://gpt-index.readthedocs.io/en/latest/development/changelog.html
