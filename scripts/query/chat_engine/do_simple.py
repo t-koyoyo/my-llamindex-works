@@ -9,7 +9,7 @@ import common
 
 # ------------------------------
 # ■ Requirements
-# https://gpt-index.readthedocs.io/en/v0.7.22/examples/chat_engine/chat_engine_repl.html
+# https://gpt-index.readthedocs.io/en/v0.7.23/examples/chat_engine/chat_engine_repl.html
 # ------------------------------
 
 # ------------------------------

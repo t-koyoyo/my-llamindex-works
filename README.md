@@ -11,7 +11,7 @@
 │   │   │   ├── create_simple.py    ... SimpleなKnowledgeGraphIndexを作成
 │   │   ├── list_index
 │   │   │   ├── create_simple.py    ... SimpleなListIndexを作成
-│   │   ├── vector_store_index      ... https://gpt-index.readthedocs.io/en/v0.7.22/core_modules/data_modules/storage/vector_stores.html
+│   │   ├── vector_store_index      ... https://gpt-index.readthedocs.io/en/v0.7.23/core_modules/data_modules/storage/vector_stores.html
 │   │   │   ├── create_faiss.py     ... FaissでVectorStoreIndexを作成
 │   │   │   ├── create_qdrant.py    ... QdrantでVectorStoreIndexを作成
 │   │   │   ├── create_simple.py    ... SimpleなVectorStoreIndexを作成

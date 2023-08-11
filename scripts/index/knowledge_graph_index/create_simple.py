@@ -10,7 +10,7 @@ import common
 
 # ------------------------------
 # ■ Requirements
-# https://gpt-index.readthedocs.io/en/v0.7.22/examples/index_structs/knowledge_graph/KnowledgeGraphDemo.html
+# https://gpt-index.readthedocs.io/en/v0.7.23/examples/index_structs/knowledge_graph/KnowledgeGraphDemo.html
 # ------------------------------
 
 # ------------------------------

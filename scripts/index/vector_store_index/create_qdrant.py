@@ -12,7 +12,7 @@ import common
 
 # ------------------------------
 # ■ Requirements
-# https://gpt-index.readthedocs.io/en/v0.7.22/examples/vector_stores/QdrantIndexDemo.html
+# https://gpt-index.readthedocs.io/en/v0.7.23/examples/vector_stores/QdrantIndexDemo.html
 # ------------------------------
 
 # ------------------------------
