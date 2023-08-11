@@ -2,7 +2,5 @@
 __pycache__
 .env
 data/*
-storages/knowledge_graph_index/*
-storages/list_index/*
-storages/vector_store_index/*
+storages/*
 !.gitkeep
