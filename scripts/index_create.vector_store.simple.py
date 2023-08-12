@@ -10,7 +10,7 @@ import common
 
 # ------------------------------
 # ■ Requirements
-# https://gpt-index.readthedocs.io/en/v0.7.23/examples/vector_stores/QdrantIndexDemo.html
+# https://gpt-index.readthedocs.io/en/v0.7.24/examples/vector_stores/QdrantIndexDemo.html
 # ------------------------------
 
 # ------------------------------
@@ -21,19 +21,15 @@ embed_model = common.embed_azure()  # Embedding Model
 # ------------------------------
 # ■ Load data
 # ------------------------------
-documents = common.load_documents_local_files("../../../data")
+documents = common.load_documents_local_files("../data")
 
 # ------------------------------
 # ■ Create index
 # ------------------------------
 service_context = ServiceContext.from_defaults(embed_model=embed_model)
-index = VectorStoreIndex.from_documents(
-  documents=documents,
-  service_context=service_context,
-  show_progress=True
-)
+index = VectorStoreIndex.from_documents(documents=documents,service_context=service_context,show_progress=True)
 
 # ------------------------------
 # ■ Save index
 # ------------------------------
-index.storage_context.persist('../../../storages/vector_store_index/simple')
+index.storage_context.persist('../storages/vector_store/simple')

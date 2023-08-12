@@ -1,8 +1,8 @@
+from datetime import datetime
 import logging
 import sys
 from llama_index import ServiceContext, set_global_service_context
 from llama_index.llms import ChatMessage, MessageRole
-from llama_index.tools import FunctionTool
 import common
 
 # logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
@@ -10,18 +10,19 @@ import common
 
 # ------------------------------
 # ■ Requirements
-# https://gpt-index.readthedocs.io/en/v0.7.23/examples/chat_engine/chat_engine_openai.html
+# https://gpt-index.readthedocs.io/en/v0.7.24/examples/chat_engine/chat_engine_condense_question.html
 # ------------------------------
 
 # ------------------------------
 # ■ Settings
 # ------------------------------
-stream_mode=True                                  # レスポンスをストリーミングとするかどうか
-llm_model = common.llm_openai()                   # LLM Model
+similarity_top_k=3                                # 類似度の高い上位何件を取得するか
+stream_mode=False                                 # レスポンスをストリーミングとするかどうか
+llm_model = common.llm_azure()                    # LLM Model
 embed_model = common.embed_azure()                # Embedding Model
 service_context = ServiceContext.from_defaults(llm=llm_model,embed_model=embed_model)
 set_global_service_context(service_context)
-message = '2人ずつのグループが3つあります。全部で何人いますか?'
+message = '時計が遅れている'
 chat_history = [
   # ChatMessage(role=MessageRole.USER,      content='打ち忘れ修正ボタンは何？'),
   # ChatMessage(role=MessageRole.ASSISTANT, content='「打ち忘れ修正」ボタンは、未処理データがある場合に表示されるボタンです。このボタンをクリックすることで、打刻漏れや誤った打刻を修正することができます。'),
@@ -30,27 +31,26 @@ chat_history = [
 # ------------------------------
 # ■ Load Index
 # ------------------------------
-index = common.load_vector_store_index_simple()
-
-# ------------------------------
-# ■ Define Function
-# ------------------------------
-def multiply(a: int, b: int) -> int:
-  """Multiple two integers and returns the result integer"""
-  return a * b
-multiply_tool = FunctionTool.from_defaults(fn=multiply)
+print('Load Index Start: ', datetime.now())
+index = common.load_index_vector_store_qdrant()
+print('Load Index End: ', datetime.now())
 
 # ------------------------------
 # ■ Do Query
 # ------------------------------
-chat_engine = index.as_chat_engine(chat_mode='openai', function_call="multiply_tool", verbose=True)
+chat_engine = index.as_chat_engine(
+  chat_mode='condense_question',
+  similarity_top_k=similarity_top_k,
+  condense_question_prompt=common.custom_prompt_condense_question_prompt(),
+  verbose=True,
+)
 response = None
 if stream_mode:
   response = chat_engine.stream_chat(message=message, chat_history=chat_history)
   response.print_response_stream()
 else:
   response = chat_engine.chat(message=message, chat_history=chat_history)
-  print(str(response))
+  print(f'{str(response)}')
 
 # ------------------------------
 # ■ Add Remarks

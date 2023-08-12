@@ -1,7 +1,8 @@
 import logging
 import sys
-from llama_index import PromptHelper, ServiceContext, set_global_service_context
+from llama_index import ServiceContext, set_global_service_context
 from llama_index.llms import ChatMessage, MessageRole
+from llama_index.tools import FunctionTool
 import common
 
 # logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
@@ -9,29 +10,18 @@ import common
 
 # ------------------------------
 # ■ Requirements
-# https://gpt-index.readthedocs.io/en/latest/examples/chat_engine/chat_engine_repl.html
+# https://gpt-index.readthedocs.io/en/v0.7.24/examples/chat_engine/chat_engine_openai.html
 # ------------------------------
 
 # ------------------------------
 # ■ Settings
 # ------------------------------
-similarity_top_k=3                                # 類似度の高い上位何件を取得するか
 stream_mode=True                                  # レスポンスをストリーミングとするかどうか
-llm_model = common.llm_azure()                    # LLM Model
+llm_model = common.llm_openai()                   # LLM Model
 embed_model = common.embed_azure()                # Embedding Model
-prompt_helper = PromptHelper(
-  context_window=16000,                           # LLMが一度に処理できるトークンの最大数（入力+出力）
-  num_output=4000,                                # LLMからの最大出力トークン数
-  # chunk_overlap_ratio=0.1,
-  # chunk_size_limit=None
-)
-service_context = ServiceContext.from_defaults(
-  llm=llm_model,
-  embed_model=embed_model,
-  prompt_helper=prompt_helper
-)
+service_context = ServiceContext.from_defaults(llm=llm_model,embed_model=embed_model)
 set_global_service_context(service_context)
-message = '時刻がずれている'
+message = '2人ずつのグループが3つあります。全部で何人いますか?'
 chat_history = [
   # ChatMessage(role=MessageRole.USER,      content='打ち忘れ修正ボタンは何？'),
   # ChatMessage(role=MessageRole.ASSISTANT, content='「打ち忘れ修正」ボタンは、未処理データがある場合に表示されるボタンです。このボタンをクリックすることで、打刻漏れや誤った打刻を修正することができます。'),
@@ -40,24 +30,20 @@ chat_history = [
 # ------------------------------
 # ■ Load Index
 # ------------------------------
-index = common.load_vector_store_index_weaviate()
+index = common.load_index_vector_store_simple()
+
+# ------------------------------
+# ■ Define Function
+# ------------------------------
+def multiply(a: int, b: int) -> int:
+  """Multiple two integers and returns the result integer"""
+  return a * b
+multiply_tool = FunctionTool.from_defaults(fn=multiply)
 
 # ------------------------------
 # ■ Do Query
 # ------------------------------
-chat_engine = index.as_chat_engine(
-  chat_mode='context',
-  similarity_top_k=similarity_top_k,
-  verbose=True,
-)
-
-# chat_engine = index.as_chat_engine(
-#   chat_mode='context',
-#   vector_store_query_mode="hybrid",
-#   similarity_top_k=similarity_top_k,
-#   verbose=True,
-# )
-
+chat_engine = index.as_chat_engine(chat_mode='openai', function_call="multiply_tool", verbose=True)
 response = None
 if stream_mode:
   response = chat_engine.stream_chat(message=message, chat_history=chat_history)
@@ -67,6 +53,6 @@ else:
   print(str(response))
 
 # ------------------------------
-# ■ Watch Nodes
+# ■ Add Remarks
 # ------------------------------
-print(response.source_nodes)    # 埋め込み回答に使用したコンテキスト情報
+# print(response.source_nodes)    # 埋め込み回答に使用したコンテキスト情報

@@ -3,7 +3,7 @@ import common
 # ------------------------------
 # ■ Load data
 # ------------------------------
-documents = common.load_documents_local_files("../../../data")
+documents = common.load_documents_local_files("../data")
 
 # ------------------------------
 # ■ Load index
@@ -22,4 +22,4 @@ for document in documents:
 # ------------------------------
 # ■ Save index
 # ------------------------------
-index.storage_context.persist('../../../storages/vector_store_index/faiss')
+index.storage_context.persist('../storages/vector_store/faiss')

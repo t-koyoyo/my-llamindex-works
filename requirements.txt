@@ -1,7 +1,7 @@
 faiss-cpu==1.7.4
 html2text==2020.1.16
 kuzu==0.0.6
-llama-index==0.7.23
+llama-index==0.7.24.post1
 nebula3-python==3.4.0
 neo4j==5.11.0
 pyvis==0.3.2

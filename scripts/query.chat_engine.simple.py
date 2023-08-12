@@ -9,7 +9,7 @@ import common
 
 # ------------------------------
 # ■ Requirements
-# https://gpt-index.readthedocs.io/en/v0.7.23/examples/chat_engine/chat_engine_repl.html
+# https://gpt-index.readthedocs.io/en/v0.7.24/examples/chat_engine/chat_engine_repl.html
 # ------------------------------
 
 # ------------------------------
@@ -23,7 +23,7 @@ set_global_service_context(service_context)
 # ------------------------------
 # ■ Load Index
 # ------------------------------
-index = common.load_vector_store_index_simple()
+index = common.load_index_vector_store_simple()
 
 # ------------------------------
 # ■ Do Query

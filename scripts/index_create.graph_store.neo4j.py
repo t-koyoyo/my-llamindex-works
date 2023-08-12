@@ -3,6 +3,7 @@ import sys
 from pyvis.network import Network
 from llama_index import KnowledgeGraphIndex, ServiceContext, StorageContext
 from llama_index.graph_stores import SimpleGraphStore
+from llama_index.graph_stores import Neo4jGraphStore
 import common
 
 # logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
@@ -10,7 +11,7 @@ import common
 
 # ------------------------------
 # ■ Requirements
-# https://gpt-index.readthedocs.io/en/v0.7.23/examples/index_structs/knowledge_graph/KnowledgeGraphDemo.html
+# https://gpt-index.readthedocs.io/en/v0.7.24/examples/index_structs/knowledge_graph/Neo4jKGIndexDemo.html
 # ------------------------------
 
 # ------------------------------
@@ -22,12 +23,12 @@ embed_model = common.embed_azure()  # Embedding Model
 # ------------------------------
 # ■ Load data
 # ------------------------------
-documents = common.load_documents_local_files("../../../data")
+documents = common.load_documents_local_files("../data")
 
 # ------------------------------
 # ■ Create index
 # ------------------------------
-graph_store = SimpleGraphStore()
+graph_store = Neo4jGraphStore(username="neo4j",password="Admin-999",url="bolt://neo4j:7687",database="neo4j")
 storage_context = StorageContext.from_defaults(graph_store=graph_store)
 service_context = ServiceContext.from_defaults(llm=llm_model, chunk_size=512, embed_model=embed_model)
 index = KnowledgeGraphIndex.from_documents(
@@ -42,7 +43,7 @@ index = KnowledgeGraphIndex.from_documents(
 # ------------------------------
 # ■ Save index
 # ------------------------------
-index.storage_context.persist('../../../storages/graph_store/knowledge')
+index.storage_context.persist('../storages/graph_store/neo4j')
 
 # ------------------------------
 # ■ Create Visualizing the Graph
@@ -50,4 +51,4 @@ index.storage_context.persist('../../../storages/graph_store/knowledge')
 g = index.get_networkx_graph()
 net = Network(notebook=True, cdn_resources="in_line", directed=True)
 net.from_nx(g)
-net.show("../../../storages/graph_store/knowledge/visual-graph.html")
+net.show("../storages/graph_store/neo4j/visual-graph.html")

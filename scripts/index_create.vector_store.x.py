@@ -33,8 +33,8 @@ PagedCSVReader = download_loader("PagedCSVReader")
 PDFMinerReader = download_loader("PDFMinerReader")
 UnstructuredReader = download_loader("UnstructuredReader")
 nodes = []
-for filename in os.listdir('../../../data'):                  # ファイル名を取得
-  file_path = os.path.join('../../../data', filename)         # ファイル名を結合してパスを作成
+for filename in os.listdir('../data'):                  # ファイル名を取得
+  file_path = os.path.join('../data', filename)         # ファイル名を結合してパスを作成
   if os.path.isfile(file_path):                               # ファイルの有無を確認
     filename, file_extension = os.path.splitext(file_path)
     if file_extension=='.csv':
@@ -66,4 +66,4 @@ if index_type == "faiss":
 # ------------------------------
 # ■ Save index
 # ------------------------------
-index.storage_context.persist('../../../storages/vector_store_index/x-'+index_type)
+index.storage_context.persist('../storages/vector_store/x-'+index_type)

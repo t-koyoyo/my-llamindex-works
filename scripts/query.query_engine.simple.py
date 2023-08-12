@@ -1,7 +1,6 @@
 import logging
 import sys
-from llama_index import ServiceContext, StorageContext, load_index_from_storage, set_global_service_context
-from llama_index.query_engine import KnowledgeGraphQueryEngine
+from llama_index import ServiceContext, set_global_service_context
 import common
 
 # logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
@@ -24,7 +23,7 @@ set_global_service_context(service_context)
 # ------------------------------
 # ■ Load Index
 # ------------------------------
-index = common.load_knowledge_graph_index_simple()
+index = common.load_index_graph_store_knowledge()
 
 # ------------------------------
 # ■ Do Query
@@ -39,4 +38,4 @@ else:
 # ------------------------------
 # ■ Watch Node
 # ------------------------------
-print(response.source_nodes)
+# print(response.source_nodes)

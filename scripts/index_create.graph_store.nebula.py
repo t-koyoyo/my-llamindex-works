@@ -11,7 +11,7 @@ import common
 
 # ------------------------------
 # ■ Requirements
-# https://gpt-index.readthedocs.io/en/v0.7.23/examples/index_structs/knowledge_graph/NebulaGraphKGIndexDemo.html
+# https://gpt-index.readthedocs.io/en/v0.7.24/examples/index_structs/knowledge_graph/NebulaGraphKGIndexDemo.html
 # ------------------------------
 os.environ["NEBULA_USER"]     = "root"              # default it is "root"
 os.environ["NEBULA_PASSWORD"] = "nebula"            # default it is "nebula"
@@ -30,7 +30,7 @@ nebula_tags           = ["entity"]        # Nebula Graph Tags
 # ------------------------------
 # ■ Load data
 # ------------------------------
-documents = common.load_documents_local_files("../../../data")
+documents = common.load_documents_local_files("../data")
 
 # ------------------------------
 # ■ Create index
@@ -54,7 +54,7 @@ index = KnowledgeGraphIndex.from_documents(
 # ------------------------------
 # ■ Save index
 # ------------------------------
-index.storage_context.persist('../../../storages/graph_store/nebula')
+index.storage_context.persist('../storages/graph_store/nebula')
 
 # ------------------------------
 # ■ Create Visualizing the Graph
@@ -62,4 +62,4 @@ index.storage_context.persist('../../../storages/graph_store/nebula')
 g = index.get_networkx_graph()
 net = Network(notebook=True, cdn_resources="in_line", directed=True)
 net.from_nx(g)
-net.show("../../../storages/graph_store/nebula/visual-graph.html")
+net.show("../storages/graph_store/nebula/visual-graph.html")

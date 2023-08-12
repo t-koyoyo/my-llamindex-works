@@ -20,7 +20,7 @@ embed_model = common.embed_azure()  # Embedding Model
 # ------------------------------
 # ■ Load data
 # ------------------------------
-documents = common.load_documents_local_files("../../../data")
+documents = common.load_documents_local_files("../data")
 
 # ------------------------------
 # ■ Create index
@@ -31,4 +31,4 @@ index = ListIndex.from_documents(documents=documents,service_context=service_con
 # ------------------------------
 # ■ Save index
 # ------------------------------
-index.storage_context.persist('../../../storages/list_index/simple')
+index.storage_context.persist('../storages/list_store/simple')

@@ -1,10 +1,7 @@
 import logging
 import sys
 from llama_index import PromptHelper, ServiceContext, set_global_service_context
-
-import load_index
-import custom_embed
-import custom_llm
+import common
 
 # logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 # logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
@@ -19,8 +16,8 @@ import custom_llm
 # ------------------------------
 similarity_top_k=3                                # 類似度の高い上位何件を取得するか
 stream_mode=True                                  # レスポンスをストリーミングとするかどうか
-llm_model = custom_llm.llm_azure()                # LLM Model
-embed_model = custom_embed.embed_azure()          # Embedding Model
+llm_model = common.llm_azure()                    # LLM Model
+embed_model = common.embed_azure()                # Embedding Model
 prompt_helper = PromptHelper(
   context_window=16000,                           # LLMが一度に処理できるトークンの最大数（入力+出力）
   num_output=4000,                                # LLMからの最大出力トークン数
@@ -37,7 +34,7 @@ set_global_service_context(service_context)
 # ------------------------------
 # ■ Load Index
 # ------------------------------
-index = load_index.load_vector_store_index_simple()
+index = common.load_index_vector_store_simple()
 
 
 #1->ノードを取得
