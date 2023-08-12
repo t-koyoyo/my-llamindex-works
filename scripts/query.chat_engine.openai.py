@@ -10,7 +10,7 @@ import common
 
 # ------------------------------
 # ■ Requirements
-# https://gpt-index.readthedocs.io/en/v0.7.24/examples/chat_engine/chat_engine_openai.html
+# https://gpt-index.readthedocs.io/en/v0.8.0/examples/chat_engine/chat_engine_openai.html
 # ------------------------------
 
 # ------------------------------

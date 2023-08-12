@@ -67,7 +67,7 @@ DROP SPACE IF EXISTS <graph_space_name>;
   |--|--|
   | Simple |aa|
   | Qdrant |aa|
-  * 参考 -> https://gpt-index.readthedocs.io/en/v0.7.24/core_modules/data_modules/storage/vector_stores.html
+  * 参考 -> https://gpt-index.readthedocs.io/en/v0.8.0/core_modules/data_modules/storage/vector_stores.html
 * Embedding Model の比較
   | Model |aa|
   |--|--|
