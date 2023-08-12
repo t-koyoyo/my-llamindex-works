@@ -1,8 +1,9 @@
 import os
+from typing import Literal
 import openai
 import qdrant_client
 import weaviate
-from langchain.embeddings import OpenAIEmbeddings
+from langchain.embeddings import OpenAIEmbeddings, HuggingFaceEmbeddings
 from llama_index import Document, LangchainEmbedding, OpenAIEmbedding, Prompt, SimpleDirectoryReader, SimpleWebPageReader, StorageContext, VectorStoreIndex, download_loader, load_index_from_storage
 from llama_index.llms import AzureOpenAI, OpenAI
 from llama_index.vector_stores.faiss import FaissVectorStore
@@ -38,6 +39,21 @@ def embed_openai() -> OpenAIEmbedding:
   :return: OpenAIEmbedding
   """
   return OpenAIEmbedding(model="text-embedding-ada-002")
+
+def embed_langchain(model:Literal[
+    "intfloat/e5-large-v2",
+    "hkunlp/instructor-xl",
+    "hkunlp/instructor-large",
+    "intfloat/e5-base-v2",
+    "intfloat/multilingual-e5-large",
+    "intfloat/e5-large"
+  ]) -> LangchainEmbedding:
+  """
+  Langchain Embedding Model
+  :param model: model name
+  :return: LangchainEmbedding
+  """
+  return LangchainEmbedding(HuggingFaceEmbeddings(model_name=model))
 
 
 ## ----------------------------------------

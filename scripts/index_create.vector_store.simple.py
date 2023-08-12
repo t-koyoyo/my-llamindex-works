@@ -16,7 +16,7 @@ import common
 # ------------------------------
 # ■ Settings
 # ------------------------------
-embed_model = common.embed_azure()  # Embedding Model
+embed_model = common.embed_langchain("intfloat/e5-base-v2")
 
 # ------------------------------
 # ■ Load data

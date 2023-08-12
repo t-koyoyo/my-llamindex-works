@@ -62,16 +62,25 @@ DROP SPACE IF EXISTS <graph_space_name>;
 
 ## Usefull Remarks
 
-* Vector Store の比較
-  | Name |aa|
-  |--|--|
-  | Simple |aa|
-  | Qdrant |aa|
+* Compare Graph Store
+* Compare Vector Store
+  | Name     |aa|
+  |----------|--|
+  | Faiss    |aa|
+  | Qdrant   |aa|
+  | Simple   |aa|
+  | Weaviate |aa|
   * 参考 -> https://gpt-index.readthedocs.io/en/v0.8.0/core_modules/data_modules/storage/vector_stores.html
-* Embedding Model の比較
-  | Model |aa|
-  |--|--|
-  | e5-large-v2 |aa|
-  | Qdrant |aa|
+* Compare Embedding Model
+  | Model                  |aa|
+  |------------------------|--|
+  | e5-large-v2            |aa|
+  | instructor-xl          |aa|
+  | instructor-large       |aa|
+  | e5-base-v2             |aa|
+  | multilingual-e5-large  |aa|
+  | e5-large               |aa|
+  | text-embedding-ada-002 |aa|
   * 参考 -> https://hironsan.hatenablog.com/entry/2023/07/05/073150
+  * Model検索 -> https://huggingface.co/
 * LlamIndex Changelog -> https://gpt-index.readthedocs.io/en/latest/development/changelog.html
