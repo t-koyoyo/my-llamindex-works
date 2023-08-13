@@ -1,10 +1,8 @@
 import logging
 import sys
 import qdrant_client
-
 from llama_index import ServiceContext, StorageContext, VectorStoreIndex
 from llama_index.vector_stores.qdrant import QdrantVectorStore
-
 import common
 
 # logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)

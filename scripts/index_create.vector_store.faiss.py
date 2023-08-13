@@ -1,10 +1,8 @@
 import logging
 import sys
 import faiss
-
 from llama_index import ServiceContext, StorageContext, VectorStoreIndex
 from llama_index.vector_stores.faiss import FaissVectorStore
-
 import common
 
 # logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
@@ -22,8 +20,8 @@ import common
 #   - faiss.IndexIVFFlat : 大規模なデータセットに対する検索を高速化する（精度は若干低下）
 #   - faiss.IndexIVFPQ   : メモリ使用量が大幅に削減され、検索速度が向上する（精度は若干低下）
 # ------------------------------
-embed_model = common.embed_azure()  # Embedding Model
-faiss_index = faiss.IndexFlatL2(1536)     # 引数は特徴量の次元数.'text-ada-embedding-002'⇒`1536`.
+embed_model = common.embed_langchain("intfloat/e5-large-v2")  # Embedding Model
+faiss_index = faiss.IndexFlatL2(1024)     # 引数は特徴量の次元数.'text-ada-embedding-002'⇒`1536`,'e5-large-v2'⇒`1024`
 
 # ------------------------------
 # ■ Load data

@@ -62,25 +62,38 @@ DROP SPACE IF EXISTS <graph_space_name>;
 
 ## Usefull Remarks
 
-* Compare Graph Store
-* Compare Vector Store
-  | Name     |aa|
-  |----------|--|
-  | Faiss    |aa|
-  | Qdrant   |aa|
-  | Simple   |aa|
-  | Weaviate |aa|
-  * 参考 -> https://gpt-index.readthedocs.io/en/v0.8.0/core_modules/data_modules/storage/vector_stores.html
 * Compare Embedding Model
-  | Model                  |aa|
+  | Model                  | Ref |
   |------------------------|--|
-  | e5-large-v2            |aa|
-  | instructor-xl          |aa|
-  | instructor-large       |aa|
-  | e5-base-v2             |aa|
-  | multilingual-e5-large  |aa|
-  | e5-large               |aa|
-  | text-embedding-ada-002 |aa|
+  | e5-large-v2            | https://huggingface.co/intfloat/e5-large-v2 |
+  | e5-base-v2             | https://huggingface.co/intfloat/e5-base-v2 |
+  | multilingual-e5-large  | https://huggingface.co/intfloat/multilingual-e5-large |
+  | e5-large               | https://huggingface.co/intfloat/multilingual-e5-large |
+  | text-embedding-ada-002 | https://note.com/npaka/n/n8f410f178f75 |
   * 参考 -> https://hironsan.hatenablog.com/entry/2023/07/05/073150
   * Model検索 -> https://huggingface.co/
+* Compare Graph Store
+  | Name      | Ref |
+  |-----------|--|
+  | Knowledge | https://note.com/npaka/n/na1c7539340f6, https://siwei.io/en/graph-enabled-llama-index/#knowledge-graph |
+  | Kuzu      | https://github.com/kuzudb/kuzu, https://gpt-index.readthedocs.io/en/latest/examples/index_structs/knowledge_graph/KuzuGraphDemo.html |
+  | Nebula    | https://www.nebula-graph.io/, https://github.com/vesoft-inc/nebula |
+  | Neo4j     | https://neo4j.com/, https://github.com/neo4j/neo4j, https://recruit.gmo.jp/engineer/jisedai/blog/graph-database-neo4j-try-cypher/ |
+* Compare Vector Store
+  | Name       | Ref |
+  |------------|--|
+  | Chroma     | https://www.trychroma.com/ |
+  | Deeplake   | https://www.deeplake.ai/ |
+  | DynamoDB   | \- |
+  | Faiss      | https://github.com/facebookresearch/faiss |
+  | Milvus     | \- |
+  | OpenSearch | \- |
+  | Pinecone   | \- |
+  | Postgres   | \- |
+  | Qdrant     | https://qdrant.tech/ |
+  | Simple     | \- |
+  | Typesense  | \- |
+  | Weaviate   | https://weaviate.io/ |
+  | Zep        | \- |
+  * 参考 -> https://gpt-index.readthedocs.io/en/v0.8.0/core_modules/data_modules/storage/vector_stores.html
 * LlamIndex Changelog -> https://gpt-index.readthedocs.io/en/latest/development/changelog.html

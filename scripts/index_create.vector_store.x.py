@@ -1,13 +1,11 @@
 import logging
-import os
 import sys
+import os
 import faiss
 from pathlib import Path
-
 from llama_index import ServiceContext, StorageContext, VectorStoreIndex, download_loader
 from llama_index.schema import TextNode
 from llama_index.vector_stores.faiss import FaissVectorStore
-
 import common
 
 # logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)

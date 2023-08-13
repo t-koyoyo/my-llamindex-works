@@ -1,10 +1,8 @@
 import logging
 import sys
 import weaviate
-
 from llama_index import ServiceContext, StorageContext, VectorStoreIndex
 from llama_index.vector_stores import WeaviateVectorStore
-
 import common
 
 # logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)

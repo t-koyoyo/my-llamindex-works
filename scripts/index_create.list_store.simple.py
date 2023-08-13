@@ -1,8 +1,6 @@
 import logging
 import sys
-
 from llama_index import ListIndex, ServiceContext
-
 import common
 
 # logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)

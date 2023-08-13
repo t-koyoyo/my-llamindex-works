@@ -9,6 +9,7 @@ from llama_index.llms import AzureOpenAI, OpenAI
 from llama_index.vector_stores.faiss import FaissVectorStore
 from llama_index.vector_stores.qdrant import QdrantVectorStore
 from llama_index.vector_stores import WeaviateVectorStore
+from llama_index.graph_stores import Neo4jGraphStore
 from llama_index.indices.base import BaseIndex
 
 
@@ -20,18 +21,12 @@ def embed_azure() -> LangchainEmbedding:
   AOAI Embedding Model
   :return: LangchainEmbedding
   """
-  os.environ["OPENAI_API_KEY"] = os.environ["AOAI_API_KEY"]
-  os.environ["OPENAI_API_BASE"] = os.environ["AOAI_API_HOST"]
-  os.environ["OPENAI_API_TYPE"] = "azure"
+  os.environ["OPENAI_API_KEY"]     = os.environ["AOAI_API_KEY"]
+  os.environ["OPENAI_API_BASE"]    = os.environ["AOAI_API_HOST"]
+  os.environ["OPENAI_API_TYPE"]    = "azure"
   os.environ["OPENAI_API_VERSION"] = "2023-05-15"
 
-  return LangchainEmbedding(
-    OpenAIEmbeddings(
-      model="text-embedding-ada-002",
-      deployment="text-embedding-ada-002_base",
-    ),
-    embed_batch_size=1,
-  )
+  return LangchainEmbedding(OpenAIEmbeddings(model="text-embedding-ada-002",deployment="text-embedding-ada-002_base"),embed_batch_size=1)
 
 def embed_openai() -> OpenAIEmbedding:
   """
@@ -42,8 +37,6 @@ def embed_openai() -> OpenAIEmbedding:
 
 def embed_langchain(model:Literal[
     "intfloat/e5-large-v2",
-    "hkunlp/instructor-xl",
-    "hkunlp/instructor-large",
     "intfloat/e5-base-v2",
     "intfloat/multilingual-e5-large",
     "intfloat/e5-large"
@@ -65,17 +58,12 @@ def llm_azure() -> AzureOpenAI:
     -> model : text-davinci-003 | gpt-35-turbo | gpt-35-turbo-16k | gpt-4 | gpt-4-32k
     -> engine: text-davinci-003_base | gpt-35-turbo_base | gpt-35-turbo-16k_base | gpt-4_base | gpt-4-32k_base
   """
-  openai.api_key = os.environ["AOAI_API_KEY"]
-  openai.api_base = os.environ["AOAI_API_HOST"]
-  openai.api_type = "azure"
+  openai.api_key     = os.environ["AOAI_API_KEY"]
+  openai.api_base    = os.environ["AOAI_API_HOST"]
+  openai.api_type    = "azure"
   openai.api_version = "2023-05-15"
 
-  return AzureOpenAI(
-    model="gpt-35-turbo-16k",
-    temperature=0,
-    max_tokens=800,
-    engine="gpt-35-turbo-16k_base"
-  )
+  return AzureOpenAI(model="gpt-4", engine="gpt-4_base", temperature=0, max_tokens=800)
 
 def llm_openai() -> OpenAI:
   """
@@ -96,10 +84,10 @@ def load_documents_local_files(dir_path:str) -> list[Document]:
       -> documents = load_documents.load_documents_local_files("../data")
   :param dir_path: directory path | e.g. "../data"
   """
-  DocxReader = download_loader("DocxReader")
-  JSONReader = download_loader("JSONReader")
-  PagedCSVReader = download_loader("PagedCSVReader")
-  PDFMinerReader = download_loader("PDFMinerReader")
+  DocxReader         = download_loader("DocxReader")
+  JSONReader         = download_loader("JSONReader")
+  PagedCSVReader     = download_loader("PagedCSVReader")
+  PDFMinerReader     = download_loader("PDFMinerReader")
   UnstructuredReader = download_loader('UnstructuredReader')
   return SimpleDirectoryReader(dir_path, file_extractor={
     ".csv": PagedCSVReader(),
@@ -127,8 +115,13 @@ def load_index_graph_store_knowledge():
   storage_context = StorageContext.from_defaults(persist_dir="../storages/graph_store/knowledge")
   return load_index_from_storage(storage_context=storage_context)
 
+def load_index_graph_store_neo4j():
+  graph_store = Neo4jGraphStore(username="neo4j",password="Admin-999",url="bolt://neo4j:7687",database="neo4j")
+  storage_context = StorageContext.from_defaults(graph_store=graph_store, persist_dir="../storages/graph_store/neo4j")
+  return load_index_from_storage(storage_context=storage_context)
+
 def load_index_list_store_simple():
-  storage_context = StorageContext.from_defaults(persist_dir="../../../storages/list_index/simple")
+  storage_context = StorageContext.from_defaults(persist_dir="../storages/list_index/simple")
   return load_index_from_storage(storage_context=storage_context)
 
 def load_index_vector_store_faiss():
@@ -159,12 +152,10 @@ def load_index_vector_store_weaviate():
 ## ----------------------------------------
 def load_query_engine_for_knowledge_graph(index:BaseIndex):
   return index.as_query_engine(
-    include_text=True,
-    response_mode="tree_summarize",
-    embedding_mode="hybrid",
-    # similarity_top_k=5,
-    # streaming=stream_mode,
-    verbose=True
+    include_text   = True,
+    response_mode  = "tree_summarize",
+    embedding_mode = "hybrid",
+    verbose        = True
   )
 
 def load_query_engine_for_simple(index:BaseIndex, stream_mode:bool=False):

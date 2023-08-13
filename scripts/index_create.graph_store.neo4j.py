@@ -2,7 +2,6 @@ import logging
 import sys
 from pyvis.network import Network
 from llama_index import KnowledgeGraphIndex, ServiceContext, StorageContext
-from llama_index.graph_stores import SimpleGraphStore
 from llama_index.graph_stores import Neo4jGraphStore
 import common
 
