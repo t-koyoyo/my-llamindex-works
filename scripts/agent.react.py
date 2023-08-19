@@ -5,7 +5,7 @@ from llama_index.agent import ReActAgent
 
 # ------------------------------
 # ■ Requirements
-# https://gpt-index.readthedocs.io/en/v0.8.1/core_modules/agent_modules/agents/usage_pattern.html
+# https://gpt-index.readthedocs.io/en/v0.8.5/core_modules/agent_modules/agents/usage_pattern.html
 # ------------------------------
 
 # define sample Tool
