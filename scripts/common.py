@@ -1,16 +1,18 @@
 import os
-from typing import Literal
+from typing import List, Literal, Optional
 import openai
 import qdrant_client
 import weaviate
 from langchain.embeddings import OpenAIEmbeddings, HuggingFaceEmbeddings
-from llama_index import Document, LangchainEmbedding, OpenAIEmbedding, Prompt, SimpleDirectoryReader, SimpleWebPageReader, StorageContext, VectorStoreIndex, download_loader, load_index_from_storage
+from llama_index import Document, LangchainEmbedding, OpenAIEmbedding, Prompt, QueryBundle, SimpleDirectoryReader, SimpleWebPageReader, StorageContext, VectorStoreIndex, download_loader, load_index_from_storage
 from llama_index.llms import AzureOpenAI, OpenAI
 from llama_index.vector_stores.faiss import FaissVectorStore
 from llama_index.vector_stores.qdrant import QdrantVectorStore
 from llama_index.vector_stores import WeaviateVectorStore
 from llama_index.graph_stores import Neo4jGraphStore
 from llama_index.indices.base import BaseIndex
+from llama_index.schema import NodeWithScore
+from llama_index.indices.postprocessor.node import BasePydanticNodePostprocessor
 
 
 ## ----------------------------------------
@@ -183,3 +185,14 @@ def custom_prompt_condense_question_prompt():
 
     <Standalone question>
   """)
+
+
+## ----------------------------------------
+## ■ Custom Node Processor
+## ----------------------------------------
+class CustomNodePostprocessor(BasePydanticNodePostprocessor):
+
+  nodes: List[NodeWithScore] = []
+
+  def postprocess_nodes(self, nodes: List[NodeWithScore], query_bundle: Optional[QueryBundle]) -> List[NodeWithScore]:
+    return self.nodes

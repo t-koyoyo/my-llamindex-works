@@ -95,5 +95,5 @@ DROP SPACE IF EXISTS <graph_space_name>;
   | Typesense  | \- |
   | Weaviate   | https://weaviate.io/ |
   | Zep        | \- |
-  * 参考 -> https://gpt-index.readthedocs.io/en/v0.8.0/core_modules/data_modules/storage/vector_stores.html
+  * 参考 -> https://gpt-index.readthedocs.io/en/v0.8.1/core_modules/data_modules/storage/vector_stores.html
 * LlamIndex Changelog -> https://gpt-index.readthedocs.io/en/latest/development/changelog.html

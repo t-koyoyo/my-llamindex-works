@@ -10,7 +10,7 @@ import common
 
 # ------------------------------
 # ■ Requirements
-# https://gpt-index.readthedocs.io/en/v0.8.0/examples/vector_stores/FaissIndexDemo.html
+# https://gpt-index.readthedocs.io/en/v0.8.1/examples/vector_stores/FaissIndexDemo.html
 # ------------------------------
 
 # ------------------------------
