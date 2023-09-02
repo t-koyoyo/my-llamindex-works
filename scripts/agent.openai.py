@@ -6,7 +6,7 @@ import common
 
 # ------------------------------
 # ■ Requirements
-# https://gpt-index.readthedocs.io/en/v0.8.5/examples/agent/openai_agent.html
+# https://gpt-index.readthedocs.io/en/v0.8.16/examples/agent/openai_agent.html
 # ------------------------------
 
 def multiply(a: int, b: int) -> int:

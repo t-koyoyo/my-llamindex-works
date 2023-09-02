@@ -11,7 +11,7 @@ import common
 
 # ------------------------------
 # ■ Requirements
-# https://gpt-index.readthedocs.io/en/v0.8.5/examples/index_structs/knowledge_graph/NebulaGraphKGIndexDemo.html
+# https://gpt-index.readthedocs.io/en/v0.8.16/examples/index_structs/knowledge_graph/NebulaGraphKGIndexDemo.html
 # ------------------------------
 os.environ["NEBULA_USER"]     = "root"              # default it is "root"
 os.environ["NEBULA_PASSWORD"] = "nebula"            # default it is "nebula"

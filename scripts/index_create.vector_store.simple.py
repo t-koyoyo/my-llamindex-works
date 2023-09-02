@@ -10,7 +10,7 @@ import common
 
 # ------------------------------
 # ■ Requirements
-# https://gpt-index.readthedocs.io/en/v0.8.5/examples/vector_stores/QdrantIndexDemo.html
+# https://gpt-index.readthedocs.io/en/v0.8.16/examples/vector_stores/QdrantIndexDemo.html
 # ------------------------------
 
 # ------------------------------
